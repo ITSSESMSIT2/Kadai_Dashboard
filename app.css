@@ -1,0 +1,288 @@
+/* =========================================================
+   デザイントークン（design-tokens.json と対応）
+   まず色・余白・角丸などを変数で定義し、以降はこれを参照する
+   ========================================================= */
+:root {
+    --primary: #1976D2;   /* アプリバー・ボタン・処理中アクセント */
+    --bg: #F5F5F5;        /* 背景 */
+    --surface: #FFFFFF;   /* カード・入力欄 */
+    --border: #E0E0E0;    /* 枠線 */
+    --text: #212121;      /* 本文 */
+    --text-sub: #757575;  /* 補助・未対応アクセント */
+    --danger: #D32F2F;    /* 削除・期限切れ */
+    --done: #2E7D32;      /* 完了アクセント */
+
+    --space-xs: 4px;
+    --space-sm: 8px;
+    --space-md: 16px;
+    --space-lg: 24px;
+    --space-xl: 32px;
+
+    --radius-sm: 4px;
+    --radius-md: 8px;
+
+    --font-caption: 12px;
+    --font-body: 14px;
+    --font-subtitle: 16px;
+    --font-title: 20px;
+
+    --elevation-1: 0 1px 3px rgba(0, 0, 0, 0.12);
+    --elevation-2: 0 2px 6px rgba(0, 0, 0, 0.16);
+}
+
+/* ---------- ベース ---------- */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: Roboto, "Noto Sans JP", "Hiragino Sans", sans-serif;
+}
+
+/* ---------- ヘッダー（アプリバー） ---------- */
+.app-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+    padding: 0 var(--space-xl);
+    background-color: var(--primary);
+    color: #fff;
+    box-shadow: var(--elevation-2);
+}
+
+.app-bar h1 {
+    margin: 0;
+    font-size: var(--font-title);
+    font-weight: 600;
+}
+
+/* ---------- レイアウト ---------- */
+.container {
+    margin: 0 auto;
+    padding: var(--space-lg) var(--space-xl);
+}
+
+.card {
+    margin-bottom: var(--space-lg);
+    padding: var(--space-lg);
+    background-color: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    box-shadow: var(--elevation-1);
+}
+
+.card h2 {
+    margin: 0 0 var(--space-md);
+    font-size: var(--font-subtitle);
+}
+
+/* ---------- 追加フォーム ---------- */
+.task-form {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: var(--space-md);
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+}
+
+.field label {
+    font-size: var(--font-caption);
+    color: var(--text-sub);
+}
+
+.field input,
+.field select {
+    height: 40px;
+    min-width: 128px;
+    padding: 0 var(--space-sm);
+    font-family: inherit;
+    font-size: var(--font-body);
+    background-color: #fff;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+}
+
+.field input:focus,
+.field select:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px rgba(25, 118, 210, 0.2);
+}
+
+.required {
+    color: var(--danger);
+}
+
+/* タスク名フィールドを伸縮させて余白を埋める（基準320px・縮小可） */
+.task-form > .field:first-child {
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: 320px;
+}
+
+
+/* 追加ボタン */
+#addButton {
+    height: 40px;
+    min-width: 128px;
+    margin-left: auto;
+    padding: 0 var(--space-lg);
+    font-size: var(--font-body);
+    font-weight: 600;
+    color: #fff;
+    background-color: var(--primary);
+    border: none;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+}
+
+
+/* ---------- タスク一覧 ---------- */
+.list-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--space-sm);
+}
+
+.summary {
+    margin: 0;
+    font-size: var(--font-caption);
+    color: var(--text-sub);
+}
+
+/* カラム見出し（各列幅は .task-item と揃える） */
+.task-list-head {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    padding: var(--space-sm) var(--space-sm);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    font-size: var(--font-caption);
+    color: var(--text-sub);
+}
+
+.task-list-head .task-name {
+    flex: 1;
+}
+
+.task-list-head .task-status-col {
+    width: 120px;
+}
+
+.task-list-head .task-action-col {
+    width: 36px;
+    text-align: center;
+}
+
+.task-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.task-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    padding: var(--space-md) var(--space-sm);
+    border-bottom: 1px solid var(--border);
+}
+
+.task-name {
+    flex: 1;
+}
+
+.task-due {
+    width: 110px;
+    font-size: var(--font-body);
+}
+
+.task-due.is-overdue {
+    color: var(--danger);
+    font-weight: 600;
+}
+
+.task-status {
+    width: 120px;
+    height: 32px;
+    padding: 0 var(--space-sm);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+}
+
+/* ステータスごとに選択欄の文字色・枠線・背景を変える */
+.task-item.is-todo .task-status {
+    color: var(--text-sub);
+    border-color: var(--border);
+    background-color: #FAFAFA;
+}
+
+.task-item.is-doing .task-status {
+    color: var(--primary);
+    border-color: var(--primary);
+    background-color: #E3F2FD;
+}
+
+.task-item.is-done .task-status {
+    color: var(--done);
+    border-color: var(--done);
+    background-color: #E8F5E9;
+}
+
+.delete-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    background-color: transparent;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.delete-button:hover {
+    background-color: #FFEBEE;
+}
+
+.delete-button img {
+    display: block;
+    width: 20px;
+    height: 20px;
+}
+
+.empty-state {
+    margin: 0;
+    padding: var(--space-lg);
+    text-align: center;
+    color: var(--text-sub);
+}
+
+/* ---------- レスポンシブ対応 ---------- */
+@media (max-width: 600px) {
+    .container {
+        padding: var(--space-md);
+    }
+
+    .field,
+    #taskName,
+    #addButton {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .task-item {
+        flex-wrap: wrap;
+    }
+}
