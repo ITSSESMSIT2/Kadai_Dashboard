@@ -201,6 +201,8 @@ body {
 
 .task-name {
     flex: 1;
+    min-width: 0;
+    overflow-wrap: anywhere;
 }
 
 .task-due {
