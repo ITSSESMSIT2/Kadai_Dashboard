@@ -93,13 +93,13 @@ const addTaskList = (taskId, taskName, taskDue, taskStatus) => {
 taskList.addEventListener('click', (event) => {
 
     // 削除ボタンをクリックした時の処理
-    const taskItem = event.target.closest('.delete-button');
-    if (!!taskItem) {
+    const deleteButton = event.target.closest('.delete-button');
+    if (deleteButton) {
         const deleteItem = event.target.closest('.task-item');
         // li要素を削除
         deleteItem.parentElement.removeChild(deleteItem);
         // タスクを変数配列から削除
-        tasks.splice(tasks.findIndex((tasks) => tasks.taskId === Number(deleteItem.dataset.taskId)), 1);
+        tasks.splice(tasks.findIndex((task) => task.taskId === Number(deleteItem.dataset.taskId)), 1);
         // 件数の見出しを更新
         updateSummary();
     }
@@ -110,7 +110,7 @@ taskList.addEventListener('change', (event) => {
     
     // ステータスを変更する時の処理
     const statusItem = event.target.closest('.task-status');
-    if (!!statusItem) {
+    if (statusItem) {
         const status = statusItem.value;
         tasks[tasks.findIndex(task => task.taskId === Number(statusItem.dataset.taskId))].taskStatus = status;
         // ステータスごとの色クラスを付け替える
