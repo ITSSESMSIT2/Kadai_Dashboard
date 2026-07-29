@@ -75,7 +75,7 @@ const addTaskList = (taskId, taskName, taskDue, taskStatus) => {
     // 今日より昔の期限なら期限切れクラスを付与
     const overdueClass = taskDue && taskDue < getToday() ? 'is-overdue' : '';
     taskItem.innerHTML = `
-        <span class="task-name">${taskName}</span>
+        <span class="task-name"></span>
         <span class="task-due ${overdueClass}">${formatDue(taskDue)}</span>
         <select class="task-status" name="taskStatus" data-task-id="${taskId}">
             <option value="未対応" ${taskStatus === '未対応' ? 'selected' : ''}>未対応</option>
@@ -86,6 +86,10 @@ const addTaskList = (taskId, taskName, taskDue, taskStatus) => {
             <img src="trash.svg" alt="" class="icon">
         </button>
     `;
+    
+    // ユーザー入力は innerHTML に直接埋め込まず、textContent で入れて XSS を防ぐ
+    taskItem.querySelector('.task-name').textContent = taskName;
+
     taskList.append(taskItem);
 }
 
